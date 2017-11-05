@@ -1,0 +1,51 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_iam_user.root" [label = "aws_iam_user.root", shape = "box"]
+		"[root] aws_kms_alias.kms_alias" [label = "aws_kms_alias.kms_alias", shape = "box"]
+		"[root] aws_kms_key.kms_key" [label = "aws_kms_key.kms_key", shape = "box"]
+		"[root] data.aws_caller_identity.current" [label = "data.aws_caller_identity.current", shape = "box"]
+		"[root] data.template_file.policy_kms" [label = "data.template_file.policy_kms", shape = "box"]
+		"[root] module.kms_secrets_s3.aws_s3_bucket.bucket" [label = "module.kms_secrets_s3.aws_s3_bucket.bucket", shape = "box"]
+		"[root] module.kms_secrets_s3.provider.aws" [label = "module.kms_secrets_s3.provider.aws", shape = "diamond"]
+		"[root] provider.aws" [label = "provider.aws", shape = "diamond"]
+		"[root] provider.template" [label = "provider.template", shape = "diamond"]
+		"[root] aws_iam_user.root" -> "[root] provider.aws"
+		"[root] aws_kms_alias.kms_alias" -> "[root] aws_kms_key.kms_key"
+		"[root] aws_kms_alias.kms_alias" -> "[root] var.environment"
+		"[root] aws_kms_alias.kms_alias" -> "[root] var.name"
+		"[root] aws_kms_key.kms_key" -> "[root] data.template_file.policy_kms"
+		"[root] data.aws_caller_identity.current" -> "[root] provider.aws"
+		"[root] data.template_file.policy_kms" -> "[root] data.aws_caller_identity.current"
+		"[root] data.template_file.policy_kms" -> "[root] provider.template"
+		"[root] data.template_file.policy_kms" -> "[root] var.principal"
+		"[root] module.kms_secrets_s3.aws_s3_bucket.bucket" -> "[root] module.kms_secrets_s3.provider.aws"
+		"[root] module.kms_secrets_s3.aws_s3_bucket.bucket" -> "[root] module.kms_secrets_s3.var.environment"
+		"[root] module.kms_secrets_s3.aws_s3_bucket.bucket" -> "[root] module.kms_secrets_s3.var.name"
+		"[root] module.kms_secrets_s3.aws_s3_bucket.bucket" -> "[root] module.kms_secrets_s3.var.namespaced"
+		"[root] module.kms_secrets_s3.aws_s3_bucket.bucket" -> "[root] module.kms_secrets_s3.var.tags"
+		"[root] module.kms_secrets_s3.output.s3_bucket_arn" -> "[root] module.kms_secrets_s3.aws_s3_bucket.bucket"
+		"[root] module.kms_secrets_s3.output.s3_bucket_domain_name" -> "[root] module.kms_secrets_s3.aws_s3_bucket.bucket"
+		"[root] module.kms_secrets_s3.output.s3_bucket_hosted_zone_id" -> "[root] module.kms_secrets_s3.aws_s3_bucket.bucket"
+		"[root] module.kms_secrets_s3.output.s3_bucket_id" -> "[root] module.kms_secrets_s3.aws_s3_bucket.bucket"
+		"[root] module.kms_secrets_s3.output.s3_bucket_name" -> "[root] module.kms_secrets_s3.aws_s3_bucket.bucket"
+		"[root] module.kms_secrets_s3.output.s3_bucket_region" -> "[root] module.kms_secrets_s3.aws_s3_bucket.bucket"
+		"[root] module.kms_secrets_s3.provider.aws" -> "[root] provider.aws"
+		"[root] module.kms_secrets_s3.var.environment" -> "[root] var.environment"
+		"[root] module.kms_secrets_s3.var.name" -> "[root] var.name"
+		"[root] output.kms_key_id" -> "[root] aws_kms_key.kms_key"
+		"[root] root" -> "[root] aws_iam_user.root"
+		"[root] root" -> "[root] aws_kms_alias.kms_alias"
+		"[root] root" -> "[root] module.kms_secrets_s3.output.s3_bucket_arn"
+		"[root] root" -> "[root] module.kms_secrets_s3.output.s3_bucket_domain_name"
+		"[root] root" -> "[root] module.kms_secrets_s3.output.s3_bucket_hosted_zone_id"
+		"[root] root" -> "[root] module.kms_secrets_s3.output.s3_bucket_id"
+		"[root] root" -> "[root] module.kms_secrets_s3.output.s3_bucket_name"
+		"[root] root" -> "[root] module.kms_secrets_s3.output.s3_bucket_region"
+		"[root] root" -> "[root] output.kms_key_id"
+		"[root] root" -> "[root] var.namespaced"
+		"[root] root" -> "[root] var.tags"
+	}
+}
+
